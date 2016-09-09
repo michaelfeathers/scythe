@@ -9,6 +9,9 @@ OptionParser.new do |opts|
 
   opts.on("-g", "--gather [project-directory]", "gather probes from source code directory") do |dir|
     puts "directory: #{File.expand_path(dir || ".")}"
+    project_dir = File.expand_path(dir || ".")
+
+    # Gatherer.gather(project_dir).group_by {|e| e }.select {|_,v| v.count > 1 }.keys
   end
 end.parse!
 
