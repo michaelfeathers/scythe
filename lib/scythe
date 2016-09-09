@@ -1,0 +1,16 @@
+#!/usr/bin/env ruby
+
+$:.unshift File.dirname(__FILE__)
+
+require 'optparse'
+
+OptionParser.new do |opts|
+  opts.banner = "Usage: scythe [options]"
+
+  opts.on("-g", "--gather [project-directory]", "gather probes from source code directory") do |dir|
+    puts "directory: #{File.expand_path(dir || ".")}"
+  end
+end.parse!
+
+
+
