@@ -16,9 +16,13 @@ rescue
   []
 end
 
+def make_file fn
+  File.open(fn, "w") {|f|} 
+end
+
 def record_marker marker_name
   marker_fn = File.join(MARKER_DIR, marker_name + ".scythe_marker")
-  File.open(marker_fn, "w") {|f|} unless File.exist?(marker_fn)
+  make_file(marker_fn) unless File.exist?(marker_fn)
 end
 
 
