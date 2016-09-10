@@ -8,7 +8,10 @@ require 'functions'
 OptionParser.new do |opts|
   opts.banner = "Usage: scythe [options]"
 
-  opts.on("-g", "--gather [project-directory]", "gather probes from source code directory") do |dir|
+  opts.on("-g", 
+          "--gather [project-directory]", 
+          "gather probes from source code directory") do |dir|
+
     project_dir = File.expand_path(dir || ".")
 
     probe_markers = file_names(project_dir).grep(/\.rb$/)
@@ -19,7 +22,8 @@ OptionParser.new do |opts|
                                      .keys
 
     unless duplicate_markers.empty?
-      puts "Markers found more than once in #{project_dir}:\n#{duplicate_markers.join($/)}" 
+      puts "Markers found more than once in #{project_dir}:\n"
+      puts "\n#{duplicate_markers.join($/)}\n\n" 
       exit(1)
     end
 
