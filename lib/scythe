@@ -3,16 +3,31 @@
 $:.unshift File.dirname(__FILE__)
 
 require 'optparse'
+require 'functions'
 
 OptionParser.new do |opts|
   opts.banner = "Usage: scythe [options]"
 
   opts.on("-g", "--gather [project-directory]", "gather probes from source code directory") do |dir|
-    puts "directory: #{File.expand_path(dir || ".")}"
     project_dir = File.expand_path(dir || ".")
 
-    # Gatherer.gather(project_dir).group_by {|e| e }.select {|_,v| v.count > 1 }.keys
+    probe_markers = file_names(project_dir).grep(/\.rb$/)
+                                           .flat_map {|fn| markers(fn) }
+
+    duplicate_markers = probe_markers.group_by {|m| m }
+                                     .select {|_,v| v.length > 1 }
+                                     .keys
+
+    unless duplicate_markers.empty?
+      puts "Markers found more than once in #{project_dir}:\n#{duplicate_markers.join($/)}" 
+      exit(1)
+    end
+
+    probe_markers.uniq.each do |marker|
+      record_marker(marker)
+    end
   end
+
 end.parse!
 
 
