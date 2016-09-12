@@ -17,7 +17,7 @@ rescue
 end
 
 def make_file fn
-  File.open(fn, "w") {|f|} 
+  File.open(fn, "w") {|_|} 
 end
 
 def record_marker marker_name

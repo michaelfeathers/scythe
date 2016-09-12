@@ -12,24 +12,42 @@ OptionParser.new do |opts|
           "--gather [project-directory]", 
           "gather probes from source code directory") do |dir|
 
-    project_dir = File.expand_path(dir || ".")
+    project_dir 
+      = File.expand_path(dir || ".")
 
-    probe_markers = file_names(project_dir).grep(/\.rb$/)
-                                           .flat_map {|fn| markers(fn) }
+    probe_markers 
+      = file_names(project_dir).grep(/\.rb$/)
+                               .flat_map {|fn| markers(fn) }
 
-    duplicate_markers = probe_markers.group_by {|m| m }
-                                     .select {|_,v| v.length > 1 }
-                                     .keys
+    duplicated_markers 
+      = probe_markers.group_by {|m| m }
+                     .select {|_,v| v.length > 1 }
+                     .keys
 
-    unless duplicate_markers.empty?
+    unless duplicated_markers.empty?
       puts "Markers found more than once in #{project_dir}:\n"
-      puts "\n#{duplicate_markers.join($/)}\n\n" 
+      puts "\n#{duplicated_markers.join($/)}\n\n" 
       exit(1)
     end
 
     probe_markers.uniq.each do |marker|
       record_marker(marker)
     end
+  end
+
+
+  opts.on("-s",
+          "--status",
+          "show status of probes") do
+
+    now = Time.now.to_i
+
+    file_names(".").grep(/\.scythe_marker/)
+                   .map {|n| File.basename(n,".*") }
+                   .map {|n| [n,File.mtime(n)] }
+                   .sort_by {|name,time| [time-now,name] }
+    
+
   end
 
 end.parse!
