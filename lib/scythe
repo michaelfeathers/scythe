@@ -20,7 +20,7 @@ OptionParser.new do |opts|
       exit(1)
     end
 
-    project_dir = expand_path(dir) 
+    project_dir = File.expand_path(dir) 
 
     probe_markers =
       file_names(project_dir).grep(/\.rb$/)
@@ -32,7 +32,7 @@ OptionParser.new do |opts|
                    .keys
 
     unless duplicated_markers.empty?
-      STDERR.puts "scythe: markers found more than once in #{project_dir}:\n"
+      STDERR.puts "scythe: the following markers found more than once in #{project_dir}:\n"
       STDERR.puts "\n#{duplicated_markers.join($/)}\n\n" 
       exit(1)
     end
@@ -63,7 +63,7 @@ OptionParser.new do |opts|
     probes.map {|probe| [probe.name, probe.days_silent?(now)]}
           .sort_by {|name,days| [-days,name] }
           .each do |name,days|
-            puts "%-20s %-3d" % [name,days]
+            puts "%-20s %3d" % [name,days]
           end
     
   end
