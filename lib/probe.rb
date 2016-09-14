@@ -1,4 +1,6 @@
 
+$:.unshift File.dirname(__FILE__)
+
 require 'date'
 
 class Probe
