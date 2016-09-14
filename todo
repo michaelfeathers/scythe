@@ -1,0 +1,4 @@
+- add a directory arg to status
+- add the call function working from an environment variable
+- set up so that scythe call pattern is parameterizable
+- make printing nicer

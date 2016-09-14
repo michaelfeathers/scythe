@@ -11,11 +11,16 @@ OptionParser.new do |opts|
   opts.banner = "Usage: scythe [options]"
 
   opts.on("-g", 
-          "--gather [project-directory]", 
+          "--gather <project-directory>", 
           "gather probes from source code directory") do |dir|
 
-    project_dir =  
-      File.expand_path(dir || ".")
+
+    unless dir && File.directory?(dir) 
+      STDERR.puts "scythe: -g option requires a valid directory argument"
+      exit(1)
+    end
+
+    project_dir = expand_path(dir) 
 
     probe_markers =
       file_names(project_dir).grep(/\.rb$/)
@@ -27,8 +32,8 @@ OptionParser.new do |opts|
                    .keys
 
     unless duplicated_markers.empty?
-      puts "Markers found more than once in #{project_dir}:\n"
-      puts "\n#{duplicated_markers.join($/)}\n\n" 
+      STDERR.puts "scythe: markers found more than once in #{project_dir}:\n"
+      STDERR.puts "\n#{duplicated_markers.join($/)}\n\n" 
       exit(1)
     end
 
@@ -39,14 +44,21 @@ OptionParser.new do |opts|
 
 
   opts.on("-s",
-          "--status",
-          "show status of probes") do
+          "--status [marker-drectory]",
+          "show status of probes") do |dir|
 
     now = Time.now.to_i
 
+    marker_dir = dir || ENV["SCYTHE_MARKER_DIR"] || "."
+
+    unless File.directory?(marker_dir)
+      STDERR.puts "scythe: -s requires a valid directory argument"
+      exit(1)
+    end
+
     probes = 
-      file_names(".").grep(/\.scythe_marker/)
-                     .map {|fn| Probe.new(File.basename(fn,".*"), File.mtime(fn).to_i)}
+      file_names(marker_dir).grep(/\.scythe_marker/)
+                            .map {|fn| Probe.new(File.basename(fn,".*"), File.mtime(fn).to_i)}
 
     probes.map {|probe| [probe.name, probe.days_silent?(now)]}
           .sort_by {|name,days| [-days,name] }
