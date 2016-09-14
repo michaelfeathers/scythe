@@ -23,7 +23,7 @@ OptionParser.new do |opts|
 
     duplicated_markers =
       probe_markers.group_by {|m| m }
-                   .select {|_,v| v.length > 1 }
+                   .select {|_,ms| ms.length > 1 }
                    .keys
 
     unless duplicated_markers.empty?
