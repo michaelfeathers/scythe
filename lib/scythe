@@ -28,7 +28,7 @@ OptionParser.new do |opts|
 
     duplicated_markers =
       probe_markers.group_by {|m| m }
-                   .select {|_,ms| ms.length > 1 }
+                   .select {|_,ms| ms.count >= 2 }
                    .keys
 
     unless duplicated_markers.empty?
@@ -58,7 +58,8 @@ OptionParser.new do |opts|
 
     probes = 
       file_names(marker_dir).grep(/\.scythe_marker/)
-                            .map {|fn| Probe.new(File.basename(fn,".*"), File.mtime(fn).to_i)}
+                            .map {|fn| Probe.new(File.basename(fn,".*"), 
+                                                 File.mtime(fn).to_i) }
 
     probes.map {|probe| [probe.name, probe.days_silent?(now)]}
           .sort_by {|name,days| [-days,name] }
