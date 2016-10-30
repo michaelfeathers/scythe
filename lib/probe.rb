@@ -12,10 +12,8 @@ class Probe
   end
 
   def days_silent? date_now 
-    check_day = Time.at(date_now).to_datetime.mjd
-    mod_day = Time.at(@mod_date).to_datetime.mjd
-
-    [0, (check_day - mod_day)].max
+    # approx secs/day is good enough
+    return (seconds_silent?(date_now) / 86400).to_i 
   end
 
   def seconds_silent? date_now
