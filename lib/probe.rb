@@ -17,4 +17,11 @@ class Probe
 
     [0, (check_day - mod_day)].max
   end
+
+  def seconds_silent? date_now
+    check_epoch = Time.at(date_now)
+    mod_epoch = Time.at(@mod_date)
+
+    [0, (check_epoch - mod_epoch)].max
+   end
 end
