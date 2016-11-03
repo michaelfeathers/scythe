@@ -35,4 +35,14 @@ def record_marker marker_name
   make_file(marker_fn) unless File.exist?(marker_fn)
 end
 
+def get_probe file_name 
+  Probe.new(File.basename(file_name, ".*"),
+            File.mtime(file_name).to_i)
+end
+
+def get_probes dir
+  file_names(dir).grep(MARKER_EXT_PATTERN)
+                 .map {|fn| get_probe(fn) }
+end
+
 

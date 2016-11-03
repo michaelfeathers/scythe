@@ -27,8 +27,4 @@ class Probe
     interval == :seconds ? seconds_silent?(date_now) : days_silent?(date_now)
   end
 
-  def self.read file_name
-    Probe.new(File.basename(file_name, ".*"),
-              File.mtime(file_name).to_i)
-  end
 end

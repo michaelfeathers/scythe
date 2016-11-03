@@ -33,7 +33,6 @@ describe Probe do
     probe = Probe.new("example", day) 
     expect(probe.seconds_silent?(next_day)).to eq(secs_per_day)
   end
-
   
   it "calculates seconds silent through silent? method" do
     day = DateTime.parse('2001-01-01').to_time.to_i
@@ -43,7 +42,6 @@ describe Probe do
     probe = Probe.new("example", day) 
     expect(probe.silent?(next_day, :seconds)).to eq(secs_per_day)
   end
-
     
   it "calculates days silent through silent? method" do
     day = DateTime.parse('2001-01-01').to_time.to_i
@@ -52,8 +50,6 @@ describe Probe do
     probe = Probe.new("example", day) 
     expect(probe.silent?(next_day, :days)).to eq(1)
   end
-
-
 
 
 end

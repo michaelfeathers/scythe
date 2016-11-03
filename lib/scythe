@@ -14,6 +14,11 @@ OptionParser.new do |opts|
           "--gather <project-directory>", 
           "gather probes from source code directory") do |dir|
 
+    unless marker_env_var && File.directory?(marker_env_var)
+      STDERR.puts "scythe: environment variable SCYTHE_MARKER_DIR not set"
+      exit(1)
+    end
+
 
     unless dir && File.directory?(dir) 
       STDERR.puts "scythe: -g option requires a valid directory argument"
@@ -58,14 +63,12 @@ OptionParser.new do |opts|
 
     reporting_interval = format == "secs" ? :seconds : :days
 
-    probes = 
-      file_names(marker_dir).grep(MARKER_EXT_PATTERN)
-                            .map {|fn| Probe.read(fn) }
+    probes = get_probes(marker_dir) 
 
     probes.map {|probe| [probe.name, probe.silent?(now, reporting_interval)]}
           .sort_by {|name, elapsed| [-elapsed, name] }
           .each do |name, elapsed|
-            puts "%-20s %3d" % [name, elapsed]
+            puts "%-30s %6d" % [name, elapsed]
           end
     
   end
