@@ -4,7 +4,8 @@ $:.unshift File.dirname(__FILE__)
 require 'find'
 
 RUBY_MARKER_PATTERN = /scythe_probe\s*\(\s*\"(\w+)\"\s*\)/
-MARKER_DIR = File.expand_path(".") 
+MARKER_EXT_PATTERN = /\.scythe_marker$/
+MARKER_EXT = ".scythe_marker"
 
 
 def marker_env_var
@@ -30,7 +31,7 @@ def make_file fn
 end
 
 def record_marker marker_name
-  marker_fn = File.join(marker_dir, marker_name + ".scythe_marker")
+  marker_fn = File.join(marker_dir, marker_name + MARKER_EXT) 
   make_file(marker_fn) unless File.exist?(marker_fn)
 end
 

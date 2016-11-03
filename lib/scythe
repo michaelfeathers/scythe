@@ -45,20 +45,19 @@ OptionParser.new do |opts|
 
   opts.on("-s",
           "--status",
-          "show status of probes") do
+          "show status of probes") do 
 
 
     unless marker_env_var && File.directory?(marker_env_var)
-      STDERR.puts "scythe: environment variable SCYTHE_MARKER_DIR must be set to a valid path for marker files"
+      STDERR.puts "scythe: environment variable SCYTHE_MARKER_DIR not set"
       exit(1)
     end
 
     now = Time.now.to_i
 
     probes = 
-      file_names(marker_dir).grep(/\.scythe_marker/)
-                            .map {|fn| Probe.new(File.basename(fn,".*"), 
-                                                 File.mtime(fn).to_i) }
+      file_names(marker_dir).grep(MARKER_EXT_PATTERN)
+                            .map {|fn| Probe.read(fn) }
 
     probes.map {|probe| [probe.name, probe.days_silent?(now)]}
           .sort_by {|name,days| [-days,name] }

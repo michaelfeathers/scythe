@@ -22,4 +22,9 @@ class Probe
 
     [0, (check_epoch - mod_epoch)].max
    end
+
+  def self.read file_name
+    Probe.new(File.basename(file_name, ".*"),
+              File.mtime(file_name).to_i)
+  end
 end
