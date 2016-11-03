@@ -21,7 +21,11 @@ class Probe
     mod_epoch = Time.at(@mod_date)
 
     [0, (check_epoch - mod_epoch)].max
-   end
+  end
+
+  def silent? date_now, interval
+    interval == :seconds ? seconds_silent?(date_now) : days_silent?(date_now)
+  end
 
   def self.read file_name
     Probe.new(File.basename(file_name, ".*"),

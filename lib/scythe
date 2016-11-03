@@ -43,9 +43,9 @@ OptionParser.new do |opts|
   end
 
 
-  opts.on("-s",
-          "--status",
-          "show status of probes") do 
+  opts.on("-s [DURATION]",
+          "--status [DURATION]",
+          "show status of probes") do |format|
 
 
     unless marker_env_var && File.directory?(marker_env_var)
@@ -53,16 +53,19 @@ OptionParser.new do |opts|
       exit(1)
     end
 
+
     now = Time.now.to_i
+
+    reporting_interval = format == "secs" ? :seconds : :days
 
     probes = 
       file_names(marker_dir).grep(MARKER_EXT_PATTERN)
                             .map {|fn| Probe.read(fn) }
 
-    probes.map {|probe| [probe.name, probe.seconds_silent?(now)]}
-          .sort_by {|name,days| [-days,name] }
-          .each do |name,days|
-            puts "%-20s %3d" % [name,days]
+    probes.map {|probe| [probe.name, probe.silent?(now, reporting_interval)]}
+          .sort_by {|name, elapsed| [-elapsed, name] }
+          .each do |name, elapsed|
+            puts "%-20s %3d" % [name, elapsed]
           end
     
   end
