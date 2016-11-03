@@ -45,4 +45,9 @@ def get_probes dir
                  .map {|fn| get_probe(fn) }
 end
 
+def delete_probe probe_name
+  marker_fn = File.join(marker_dir, probe_name + MARKER_EXT) 
+  File.delete(marker_fn)
+end
+
 

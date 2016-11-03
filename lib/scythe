@@ -56,6 +56,27 @@ OptionParser.new do |opts|
   end
 
 
+  opts.on("-d",
+          "--delete <probe-name>",
+          "delete a probe") do |probe_name|
+
+
+    unless marker_env_var && File.directory?(marker_env_var)
+      STDERR.puts "scythe: environment variable SCYTHE_MARKER_DIR not set"
+      exit(1)
+    end
+
+    probes = get_probes(marker_dir) 
+
+    if probes.map(&:name).select {|n| n == probe_name }.empty?
+      STDERR.puts "scythe: unable to find probe #{probe_name}"
+      exit(1)
+    end
+
+    delete_probe(probe_name)
+
+  end
+          
   opts.on("-s [DURATION]",
           "--status [DURATION]",
           "show status of probes") do |format|
