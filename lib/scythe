@@ -37,9 +37,17 @@ OptionParser.new do |opts|
                    .keys
 
     unless duplicated_markers.empty?
-      STDERR.puts "scythe: the following markers found more than once in #{project_dir}:\n"
+      STDERR.puts "scythe: the following probes found more than once in #{project_dir}:\n"
       STDERR.puts "\n#{duplicated_markers.join($/)}\n\n" 
       exit(1)
+    end
+
+    removed_markers = get_probes(marker_dir).map(&:name) - probe_markers.uniq
+
+    unless removed_markers.empty?
+      STDERR.puts "scythe: the following probes were not found in #{project_dir}"
+      STDERR.puts "  Consider deleting them with -d:"
+      STDERR.puts "\n#{removed_markers.join($/)}\n\n"
     end
 
     probe_markers.uniq.each do |marker|
