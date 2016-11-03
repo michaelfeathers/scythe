@@ -59,7 +59,7 @@ OptionParser.new do |opts|
       file_names(marker_dir).grep(MARKER_EXT_PATTERN)
                             .map {|fn| Probe.read(fn) }
 
-    probes.map {|probe| [probe.name, probe.days_silent?(now)]}
+    probes.map {|probe| [probe.name, probe.seconds_silent?(now)]}
           .sort_by {|name,days| [-days,name] }
           .each do |name,days|
             puts "%-20s %3d" % [name,days]
