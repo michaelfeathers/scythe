@@ -44,17 +44,16 @@ OptionParser.new do |opts|
 
 
   opts.on("-s",
-          "--status [marker-drectory]",
-          "show status of probes") do |dir|
+          "--status",
+          "show status of probes") do
 
-    now = Time.now.to_i
 
-    marker_dir = dir || ENV["SCYTHE_MARKER_DIR"] || "."
-
-    unless File.directory?(marker_dir)
-      STDERR.puts "scythe: -s requires a valid directory argument"
+    unless marker_env_var && File.directory?(marker_env_var)
+      STDERR.puts "scythe: environment variable SCYTHE_MARKER_DIR must be set to a valid path for marker files"
       exit(1)
     end
+
+    now = Time.now.to_i
 
     probes = 
       file_names(marker_dir).grep(/\.scythe_marker/)
