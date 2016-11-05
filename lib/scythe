@@ -14,8 +14,8 @@ OptionParser.new do |opts|
           "--gather <project-directory>", 
           "gather probes from source code directory") do |dir|
 
-    unless marker_env_var && File.directory?(marker_env_var)
-      STDERR.puts "scythe: environment variable SCYTHE_MARKER_DIR not set"
+    unless probe_env_var && File.directory?(probe_env_var)
+      STDERR.puts "scythe: environment variable SCYTHE_PROBE_DIR not set"
       exit(1)
     end
 
@@ -42,7 +42,7 @@ OptionParser.new do |opts|
       exit(1)
     end
 
-    removed_markers = get_probes(marker_dir).map(&:name) - probe_markers.uniq
+    removed_markers = get_probes(probe_dir).map(&:name) - probe_markers.uniq
 
     unless removed_markers.empty?
       STDERR.puts "scythe: the following probes were not found in #{project_dir}"
@@ -51,7 +51,7 @@ OptionParser.new do |opts|
     end
 
     probe_markers.uniq.each do |marker|
-      record_marker(marker)
+      record_probe(marker)
     end
   end
 
@@ -61,12 +61,12 @@ OptionParser.new do |opts|
           "delete a probe") do |probe_name|
 
 
-    unless marker_env_var && File.directory?(marker_env_var)
+    unless probe_env_var && File.directory?(probe_env_var)
       STDERR.puts "scythe: environment variable SCYTHE_MARKER_DIR not set"
       exit(1)
     end
 
-    probes = get_probes(marker_dir) 
+    probes = get_probes(probe_dir) 
 
     if probes.map(&:name).select {|n| n == probe_name }.empty?
       STDERR.puts "scythe: unable to find probe #{probe_name}"
@@ -82,7 +82,7 @@ OptionParser.new do |opts|
           "show status of probes") do |format|
 
 
-    unless marker_env_var && File.directory?(marker_env_var)
+    unless probe_env_var && File.directory?(probe_env_var)
       STDERR.puts "scythe: environment variable SCYTHE_MARKER_DIR not set"
       exit(1)
     end
@@ -92,7 +92,7 @@ OptionParser.new do |opts|
 
     reporting_interval = format == "secs" ? :seconds : :days
 
-    probes = get_probes(marker_dir) 
+    probes = get_probes(probe_dir) 
 
     probes.map {|probe| [probe.name, probe.silent?(now, reporting_interval)]}
           .sort_by {|name, elapsed| [-elapsed, name] }

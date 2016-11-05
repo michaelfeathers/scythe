@@ -4,16 +4,16 @@ $:.unshift File.dirname(__FILE__)
 require 'find'
 
 RUBY_MARKER_PATTERN = /scythe_probe\s*\(\s*\"(\w+)\"\s*\)/
-MARKER_EXT_PATTERN = /\.scythe_marker$/
-MARKER_EXT = ".scythe_marker"
+PROBE_EXT_PATTERN = /\.scythe_probe$/
+PROBE_EXT = ".scythe_probe"
 
 
-def marker_env_var
-  ENV["SCYTHE_MARKER_DIR"]
+def probe_env_var
+  ENV["SCYTHE_PROBE_DIR"]
 end
 
-def marker_dir
-  File.expand_path(marker_env_var)
+def probe_dir
+  File.expand_path(probe_env_var)
 end
 
 def file_names file_spec
@@ -30,9 +30,9 @@ def make_file fn
   File.open(fn, "w") {|_|} 
 end
 
-def record_marker marker_name
-  marker_fn = File.join(marker_dir, marker_name + MARKER_EXT) 
-  make_file(marker_fn) unless File.exist?(marker_fn)
+def record_probe probe_name
+  probe_fn = File.join(probe_dir, probe_name + PROBE_EXT) 
+  make_file(probe_fn) unless File.exist?(probe_fn)
 end
 
 def get_probe file_name 
@@ -41,13 +41,13 @@ def get_probe file_name
 end
 
 def get_probes dir
-  file_names(dir).grep(MARKER_EXT_PATTERN)
+  file_names(dir).grep(PROBE_EXT_PATTERN)
                  .map {|fn| get_probe(fn) }
 end
 
 def delete_probe probe_name
-  marker_fn = File.join(marker_dir, probe_name + MARKER_EXT) 
-  File.delete(marker_fn)
+  probe_fn = File.join(probe_dir, probe_name + probe_EXT) 
+  File.delete(probe_fn)
 end
 
 
