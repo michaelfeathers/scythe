@@ -55,9 +55,9 @@ No bundler or gems. Clone the repository:
   git clone https://github.com/michaelfeathers/scythe.git
 
 
-Add the scythe command in scythe/lib to your path
+Add scythe/lib to your path
 
-  export PATH=$PATH:<directory where scythe is installed>/lib
+  export PATH=$PATH:<directory where scythe is installed>/scythe/lib
 
 Set an environment variable named SCYTHE_PROBE_DIR to a location where
 the scythe probe history information will reside. This environment 
