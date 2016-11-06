@@ -26,11 +26,11 @@ To use Scythe, place calls in your code with the following form
   scythe_probe("marker_name") 
 
 marker_name should be a unique string consisting of alphanumerics and 
-underscore. Whether this call is make in your code, the time and date
+underscores. When this call is made in your code the time and date
 of the call will be recorded.
 
 Scythe becomes aware of these probes when you call it at the console
-with the -g and a directory path:
+with the gather option (-g) and a directory path:
 
   scythe -g .
 
@@ -40,7 +40,7 @@ should be run as part of your build.
 
 To see how long it has been since individual probes have been called
 run scythe with the -s option. Scythe will produce a list of all 
-probes along with the number of days that they have not been called.
+probes along with the number of days they have been uncalled. 
 
 == FUTURE DIRECTIONS:
 
