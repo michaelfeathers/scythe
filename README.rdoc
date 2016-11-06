@@ -1,0 +1,99 @@
+= Scythe
+
+* http://github.com/michaelfeathers/scythe/
+
+== DESCRIPTION:
+
+Scythe is a light-weight tool for detecting dead and infrequently used code
+in production.
+
+Scythe defines a set of functions (probes) that you can call from your
+application. When they are executed they record the time and date they
+were called.
+
+A command line utility shows you how long it has been since each probe
+was called. You can use this information to make an informed decision
+about whether to attempt to delete code or do further analysis.
+
+== FEATURES/PROBLEMS:
+
+* Currently only supports Ruby 
+
+== SYNOPSIS:
+
+To use Scythe, place calls in your code with the following form
+  
+  scythe_probe("marker_name") 
+
+marker_name should be a unique string consisting of alphanumerics and 
+underscore. Whether this call is make in your code, the time and date
+of the call will be recorded.
+
+Scythe becomes aware of these probes when you call it at the console
+with the -g and a directory path:
+
+  scythe -g .
+
+Scythe will recursively interate over all Ruby files in the specified 
+directory and record the addition of any probe calls. Ideally, scythe -g
+should be run as part of your build.
+
+To see how long it has been since individual probes have been called
+run scythe with the -s option. Scythe will produce a list of all 
+probes along with the number of days that they have not been called.
+
+== FUTURE DIRECTIONS:
+
+* Support for other languages (Javascript, Java, Python, etc)
+* Record number of calls and stack traces
+* statsd support
+
+== INSTALL
+
+No bundler or gems. Clone the repository:
+
+  git clone https://github.com/michaelfeathers/scythe.git
+
+
+Add the scythe command in scythe/lib to your path
+
+  export PATH=$PATH:<directory where scythe is installed>/lib
+
+Set an environment variable named SCYTHE_PROBE_DIR to a location where
+the scythe probe history information will reside. This environment 
+variable will be used by the scythe_probe calls.
+
+  export SCYTHE_PROBE_DIR=<your marker directory>
+
+Run scythe -h to see command line options
+
+
+== REQUIREMENTS:
+
+* Ruby > 2.30 
+
+== LICENSE:
+
+(The MIT License)
+
+Copyright (c) 2016 Michael Feathers
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+'Software'), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
