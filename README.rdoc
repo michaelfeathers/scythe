@@ -23,9 +23,9 @@ about whether to attempt to delete code or do further analysis.
 
 To use Scythe, place calls in your code of the following form
   
-  scythe_probe("marker_name") 
+  scythe_probe("probe_name") 
 
-marker_name should be a unique string consisting of alphanumerics and 
+probe_name should be a unique string consisting of alphanumerics and 
 underscores. When this call is made in your code the time and date
 of the call will be recorded.
 
@@ -63,7 +63,7 @@ Set an environment variable named SCYTHE_PROBE_DIR to a location where
 the scythe probe history information will reside. This environment 
 variable will be used by the scythe_probe calls.
 
-  export SCYTHE_PROBE_DIR=<your marker directory>
+  export SCYTHE_PROBE_DIR=<your probe directory>
 
 Run scythe -h to see command line options
 
