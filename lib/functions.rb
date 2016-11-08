@@ -16,6 +16,10 @@ def probe_dir
   File.expand_path(probe_env_var)
 end
 
+def probe_file_name marker
+  File.join(probe_dir, marker + PROBE_EXT)
+end
+
 def file_names file_spec
   Find.find(File.expand_path(file_spec))
 end
@@ -30,9 +34,9 @@ def make_file fn
   File.open(fn, "w") {|_|} 
 end
 
-def record_probe probe_name
-  probe_fn = File.join(probe_dir, probe_name + PROBE_EXT) 
-  make_file(probe_fn) unless File.exist?(probe_fn)
+def record_probe marker
+  fn = probe_file_name(marker) 
+  make_file(fn) unless File.exist?(fn)
 end
 
 def get_probe file_name 
@@ -45,9 +49,8 @@ def get_probes dir
                  .map {|fn| get_probe(fn) }
 end
 
-def delete_probe probe_name
-  probe_fn = File.join(probe_dir, probe_name + probe_EXT) 
-  File.delete(probe_fn)
+def delete_probe marker
+  File.delete(probe_file_name(marker))
 end
 
 
