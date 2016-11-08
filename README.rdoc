@@ -40,7 +40,16 @@ should be run as part of your build.
 
 To see how long it has been since individual probes have been called
 run scythe with the -s option. Scythe will produce a list of all 
-probes along with the number of days they have been uncalled. 
+probes along with the number of days since they've been called.
+
+If you want to delete a probe, pass it's name to Scythe with the -d
+option:
+
+  scythe -d <probe_name>
+
+Scythe returns an error code of 0 on success and 1 on all other
+errors. 
+
 
 == FUTURE DIRECTIONS:
 
@@ -70,7 +79,7 @@ Run scythe -h to see command line options
 
 == REQUIREMENTS:
 
-* Ruby > 2.30 
+* Ruby >= 2.30 
 
 == LICENSE:
 
