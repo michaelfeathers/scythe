@@ -83,8 +83,8 @@ OptionParser.new do |opts|
   opts.on("-s [secs | h]",
           "--status [secs | h]",
           "shows the elapsed time since the last call for each probe (in days).",
-          "\tsecs: show time in seconds", 
-          "\th: show time in hours (not yet implemented)") do |format|
+          "secs: show time in seconds", 
+          "h: show time in hours") do |format|
 
 
     unless probe_env_var && File.directory?(probe_env_var)
@@ -95,8 +95,15 @@ OptionParser.new do |opts|
 
     now = Time.now.to_i
 
-    reporting_interval = (format == "secs") ? :seconds : :days
-
+    #reporting_interval = (format == "secs") ? :seconds : :days
+    case format 
+      when "secs"
+        reporting_interval = :seconds
+      when "h"
+        reporting_interval = :hours
+      else
+        reporting_interval = :days
+    end
     probes = get_probes(probe_dir) 
 
     probes.map {|probe| [probe.name, probe.silent?(now, reporting_interval)]}
