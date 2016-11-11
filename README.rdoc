@@ -17,7 +17,7 @@ about whether to attempt to delete code or do further analysis.
 
 == FEATURES/PROBLEMS:
 
-* Currently only supports Ruby and Python 2.7/3.x
+* Currently only supports Ruby and Python 3.x
 
 == SYNOPSIS:
 
@@ -80,7 +80,7 @@ Run scythe -h to see command line options
 == REQUIREMENTS:
 
 * Ruby >= 2.30 
-* OPTIONAL: Python 2.x/3.x >= 2.7 to use the python probe
+* OPTIONAL: Python 3.x to use the python probe
 
 == LICENSE:
 
