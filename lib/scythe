@@ -32,7 +32,7 @@ OptionParser.new do |opts|
       file_names(project_dir).grep(/[\.rb$ \.py$]/)
                              .flat_map {|fn| markers(fn) }
     
-    puts probe_markers
+    #puts probe_markers
 
     duplicated_markers =
       probe_markers.group_by {|m| m }
