@@ -17,11 +17,11 @@ about whether to attempt to delete code or do further analysis.
 
 == FEATURES/PROBLEMS:
 
-* Currently only supports Ruby 
+* Currently only supports Ruby and Python 2.7/3.x
 
 == SYNOPSIS:
 
-To use Scythe, place calls in your code of the following form
+To use Scythe, place calls in your Ruby/Python code of the following form
   
   scythe_probe("probe_name") 
 
@@ -34,7 +34,7 @@ with the gather option (-g) and a directory path:
 
   scythe -g .
 
-Scythe will recursively iterate over all Ruby files in the specified 
+Scythe will recursively iterate over all Ruby and Python files in the specified 
 directory and record the addition of any probe calls. Ideally, scythe -g
 should be run as part of your build.
 
