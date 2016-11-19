@@ -62,7 +62,7 @@ OptionParser.new do |opts|
 
 
     unless probe_env_var && File.directory?(probe_env_var)
-      STDERR.puts "scythe: environment variable SCYTHE_MARKER_DIR not set"
+      STDERR.puts "scythe: environment variable SCYTHE_PROBE_DIR not set"
       exit(1)
     end
 
@@ -83,7 +83,7 @@ OptionParser.new do |opts|
 
 
     unless probe_env_var && File.directory?(probe_env_var)
-      STDERR.puts "scythe: environment variable SCYTHE_MARKER_DIR not set"
+      STDERR.puts "scythe: environment variable SCYTHE_PROBE_DIR not set"
       exit(1)
     end
 
