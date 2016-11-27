@@ -42,6 +42,11 @@ To see how long it has been since individual probes have been called
 run scythe with the -s option. Scythe will produce a list of all 
 probes along with the number of days since they've been called.
 
+By default, -s produces its report in days. You can use hours and secs as
+options as well to get more precise output:
+
+  scythe -s secs
+
 If you want to delete a probe, pass its name to Scythe with the -d
 option:
 
