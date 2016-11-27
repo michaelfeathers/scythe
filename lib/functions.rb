@@ -57,4 +57,11 @@ def delete_probe marker
   File.delete(probe_file_name(marker))
 end
 
+def reporting_interval text_rep
+  return :seconds if text_rep == "secs"
+  return :hours if text_rep == "hours"
+  return :days if text_rep == "days"
+  return :days
+end
+
 

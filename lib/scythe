@@ -89,20 +89,18 @@ OptionParser.new do |opts|
       exit(1)
     end
 
+    unless ["secs", "hours", "days", ""].include?(format)
+      STDERR.puts "scythe: #{format} is an invalid format for -s"
+      exit(1)
+    end
 
+
+    format ||= ""
     now = Time.now.to_i
 
-    case format 
-      when "secs"
-        reporting_interval = :seconds
-      when "hours"
-        reporting_interval = :hours
-      else
-        reporting_interval = :days
-    end
     probes = get_probes(probe_dir) 
 
-    probes.map {|probe| [probe.name, probe.silent?(now, reporting_interval)]}
+    probes.map {|probe| [probe.name, probe.silent?(now, reporting_interval(format))]}
           .sort_by {|name, elapsed| [-elapsed, name] }
           .each do |name, elapsed|
             puts "%-30s %6d" % [name, elapsed]
