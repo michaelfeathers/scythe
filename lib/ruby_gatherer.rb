@@ -7,7 +7,12 @@ class RubyGatherer
   end
 
   def markers
-    @reader.read.scan(/scythe_probe\s*\(\s*\"(\w+)\"\s*\)/).flatten
+    paren_form = Regexp.new('scythe_probe\s*\(\s*\"(\w+)\"\s*\)')
+    parenless_form = Regexp.new('scythe_probe\s*\"(\w+)\"')
+
+    [paren_form, parenless_form]
+      .map {|f| @reader.read.scan(f) }
+      .flatten
   end
     
 end

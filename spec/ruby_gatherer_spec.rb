@@ -30,10 +30,10 @@ describe RubyGatherer do
       .to eq(["a_marker", "and_another_"])
   end
 
-  it 'fails to match with missing lead paren' do
-    expect(gatherer_on("scythe_probe \"a\")").markers)
-      .to eq([])
-  end
+ it 'gathers non-paren form of probe call' do
+   expect(gatherer_on("scythe_probe \"a_marker\"").markers)
+      .to eq(["a_marker"])
+ end
 
 
 end
