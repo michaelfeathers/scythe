@@ -27,13 +27,10 @@ OptionParser.new do |opts|
 
     project_dir = File.expand_path(dir) 
 
-    # regex now considers .py files
     probe_markers =
       file_names(project_dir).grep(/[\.rb$ \.py$]/)
                              .flat_map {|fn| markers(fn) }
     
-    #puts probe_markers
-
     duplicated_markers =
       probe_markers.group_by {|m| m }
                    .select {|_,ms| ms.count >= 2 }
@@ -95,11 +92,10 @@ OptionParser.new do |opts|
 
     now = Time.now.to_i
 
-    #reporting_interval = (format == "secs") ? :seconds : :days
     case format 
       when "secs"
         reporting_interval = :seconds
-      when "h"
+      when "hours"
         reporting_interval = :hours
       else
         reporting_interval = :days
