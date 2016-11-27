@@ -27,9 +27,12 @@ OptionParser.new do |opts|
 
     project_dir = File.expand_path(dir) 
 
+    # regex now considers .py files
     probe_markers =
-      file_names(project_dir).grep(/\.rb$/)
+      file_names(project_dir).grep(/[\.rb$ \.py$]/)
                              .flat_map {|fn| markers(fn) }
+    
+    #puts probe_markers
 
     duplicated_markers =
       probe_markers.group_by {|m| m }
@@ -77,9 +80,11 @@ OptionParser.new do |opts|
 
   end
           
-  opts.on("-s [DURATION]",
-          "--status [DURATION]",
-          "show status of probes") do |format|
+  opts.on("-s [secs | h]",
+          "--status [secs | h]",
+          "shows the elapsed time since the last call for each probe (in days).",
+          "secs: show time in seconds", 
+          "h: show time in hours") do |format|
 
 
     unless probe_env_var && File.directory?(probe_env_var)
@@ -90,8 +95,15 @@ OptionParser.new do |opts|
 
     now = Time.now.to_i
 
-    reporting_interval = format == "secs" ? :seconds : :days
-
+    #reporting_interval = (format == "secs") ? :seconds : :days
+    case format 
+      when "secs"
+        reporting_interval = :seconds
+      when "h"
+        reporting_interval = :hours
+      else
+        reporting_interval = :days
+    end
     probes = get_probes(probe_dir) 
 
     probes.map {|probe| [probe.name, probe.silent?(now, reporting_interval)]}

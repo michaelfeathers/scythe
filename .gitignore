@@ -1,2 +1,4 @@
 *.scythe_marker
 todo
+*.pyc
+__pycache__

@@ -16,6 +16,10 @@ class Probe
     return (seconds_silent?(date_now) / 86400).to_i 
   end
 
+  def hours_silent? date_now
+    return (seconds_silent?(date_now) / 3600).to_i
+  end
+
   def seconds_silent? date_now
     check_epoch = Time.at(date_now)
     mod_epoch = Time.at(@mod_date)
@@ -24,7 +28,15 @@ class Probe
   end
 
   def silent? date_now, interval
-    interval == :seconds ? seconds_silent?(date_now) : days_silent?(date_now)
+    #interval == :seconds ? seconds_silent?(date_now) : days_silent?(date_now)
+    case interval
+      when :seconds
+        seconds_silent?(date_now) 
+      when :hours
+         hours_silent?(date_now)
+      else
+        days_silent?(date_now)
+    end
   end
 
 end
