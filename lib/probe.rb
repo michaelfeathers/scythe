@@ -28,7 +28,6 @@ class Probe
   end
 
   def silent? date_now, interval
-    #interval == :seconds ? seconds_silent?(date_now) : days_silent?(date_now)
     case interval
       when :seconds
         seconds_silent?(date_now) 
