@@ -1,9 +1,9 @@
 
 $:.unshift File.dirname(__FILE__)
 
-class RubyGatherer
-  def initialize reader
-    @reader = reader
+class Gatherer
+  def initialize text
+    @text = text
   end
 
   def markers
@@ -11,7 +11,7 @@ class RubyGatherer
     parenless_form = Regexp.new('scythe_probe\s*\"(\w+)\"')
 
     [paren_form, parenless_form]
-      .map {|f| @reader.read.scan(f) }
+      .map {|f| @text.scan(f) }
       .flatten
   end
     

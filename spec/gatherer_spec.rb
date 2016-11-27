@@ -1,18 +1,11 @@
 
 
-require 'ruby_gatherer'
+require 'gatherer'
 
-class TextReader
-  def initialize text; @text = text; end
-
-  def read; @text; end
-end
-
-
-describe RubyGatherer do
+describe Gatherer do
 
   def gatherer_on text
-    RubyGatherer.new(TextReader.new(text))
+    Gatherer.new(text)
   end
 
   it 'gathers no markers from a reader' do
