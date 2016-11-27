@@ -1,2 +1,4 @@
 *.scythe_probe
 todo
+*.pyc
+__pycache__

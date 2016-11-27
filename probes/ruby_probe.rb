@@ -1,5 +1,3 @@
-
-
 require 'fileutils'
 
 def scythe_probe marker
