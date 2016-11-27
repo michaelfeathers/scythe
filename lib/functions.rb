@@ -4,7 +4,7 @@ $:.unshift File.dirname(__FILE__)
 require 'find'
 
 # Note: RUBY_MARKER_PATTERN also works for python
-RUBY_MARKER_PATTERN = /scythe_probe\s*\s*\("(\w+)\"\)s*/
+RUBY_MARKER_PATTERN = /scythe_probe\s*\(\s*\"(\w+)\"\s*\)/
 # matches ruby functions of the form scythe_probe "param" (without parentheses)
 RUBY_ALT_MARKER_PATTERN = /scythe_probe\s*\s*\"(\w+)\"\s*/
 PROBE_EXT_PATTERN = /\.scythe_probe$/
