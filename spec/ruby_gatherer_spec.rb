@@ -25,5 +25,16 @@ describe RubyGatherer do
       .to eq(["a"])
   end
 
+  it 'gathers several parenthesized markers' do
+    expect(gatherer_on("scythe_probe(\"a_marker\") scythe_probe ( \"and_another_\" )\"").markers)
+      .to eq(["a_marker", "and_another_"])
+  end
+
+  it 'fails to match with missing lead paren' do
+    expect(gatherer_on("scythe_probe \"a\")").markers)
+      .to eq([])
+  end
+
+
 end
 
