@@ -27,7 +27,8 @@ To use Scythe, place calls in your Ruby/Python code of the following form
 
 probe_name should be a unique string consisting of alphanumerics and 
 underscores. When this call is made in your code the time and date
-of the call will be recorded.
+of the call will be recorded. Code for probes in all supported languages
+is in the probe directory.
 
 Scythe becomes aware of these probes when you call it at the console
 with the gather option (-g) and a directory path:
@@ -54,6 +55,18 @@ option:
 
 Scythe returns an error code of 0 on success and 1 on all other
 errors. 
+
+
+== PROBE CALLS:
+
+For simplicity of implementation only two forms are supported for 
+probe calls: the name scythe_probe followed by an identifier
+([A-Za-z0-9_]+) in double quotes, or scythe_probe followed by an open 
+paren, identifier in double quotes, and a close paren.
+
+This pattern works for all of the languages Scythe currently supports.
+Handling single quote strings and other string forms for languages 
+that support them would complicate processing.
 
 
 == FUTURE DIRECTIONS:
