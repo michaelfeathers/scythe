@@ -97,7 +97,7 @@ Run scythe -h to see command line options
 
 == REQUIREMENTS:
 
-* Ruby >= 2.30 
+* Ruby >= 2.3.0 
 * OPTIONAL: Python 3.x to use the python probe
 
 == LICENSE:
