@@ -5,6 +5,7 @@ $:.unshift File.dirname(__FILE__)
 require 'optparse'
 require 'functions'
 require 'probe'
+require 'gather_cmd'
 
 
 OptionParser.new do |opts|
@@ -13,46 +14,7 @@ OptionParser.new do |opts|
   opts.on("-g", 
           "--gather <project-directory>", 
           "gather probes from source code directory") do |dir|
-
-    unless probe_env_var && File.directory?(probe_env_var)
-      STDERR.puts "scythe: environment variable SCYTHE_PROBE_DIR not set"
-      exit(1)
-    end
-
-
-    unless dir && File.directory?(dir) 
-      STDERR.puts "scythe: -g option requires a valid directory argument"
-      exit(1)
-    end
-
-    project_dir = File.expand_path(dir) 
-
-    probe_markers =
-      file_names(project_dir).grep(/\.rb$|\.py$/)
-                             .flat_map {|fn| markers(fn) }
-    
-    duplicated_markers =
-      probe_markers.group_by {|m| m }
-                   .select {|_,ms| ms.count >= 2 }
-                   .keys
-
-    unless duplicated_markers.empty?
-      STDERR.puts "scythe: the following probes found more than once in #{project_dir}:\n"
-      STDERR.puts "\n#{duplicated_markers.join($/)}\n\n" 
-      exit(1)
-    end
-
-    removed_markers = get_probes(probe_dir).map(&:name) - probe_markers.uniq
-
-    unless removed_markers.empty?
-      STDERR.puts "scythe: the following probes were not found in #{project_dir}"
-      STDERR.puts "  Consider deleting them with -d:"
-      STDERR.puts "\n#{removed_markers.join($/)}\n\n"
-    end
-
-    probe_markers.uniq.each do |marker|
-      record_probe(marker)
-    end
+    GatherCommand.new(dir, STDOUT, STDERR).run
   end
 
 
@@ -110,6 +72,7 @@ OptionParser.new do |opts|
   end
 
 end.parse!
+
 
 
 
