@@ -6,6 +6,7 @@ require 'optparse'
 require 'functions'
 require 'probe'
 require 'gather_cmd'
+require 'delete_cmd'
 
 
 OptionParser.new do |opts|
@@ -21,22 +22,7 @@ OptionParser.new do |opts|
   opts.on("-d",
           "--delete <probe-name>",
           "delete a probe") do |probe_name|
-
-
-    unless probe_env_var && File.directory?(probe_env_var)
-      STDERR.puts "scythe: environment variable SCYTHE_PROBE_DIR not set"
-      exit(1)
-    end
-
-    probes = get_probes(probe_dir) 
-
-    if probes.map(&:name).select {|n| n == probe_name }.empty?
-      STDERR.puts "scythe: unable to find probe #{probe_name}"
-      exit(1)
-    end
-
-    delete_probe(probe_name)
-
+            DeleteCommand.new(probe_name, STDOUT, STDERR).run
   end
           
   opts.on("-s [secs | h]",
