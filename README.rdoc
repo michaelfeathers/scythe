@@ -17,11 +17,11 @@ about whether to attempt to delete code or do further analysis.
 
 == FEATURES/PROBLEMS:
 
-* Currently only supports Ruby and Python 3.x
+* Currently supports Java, Python 3.x and Ruby
 
 == SYNOPSIS:
 
-To use Scythe, place calls in your Ruby/Python code of the following form
+To use Scythe, place calls in your code of the following form
   
   scythe_probe("probe_name") 
 
@@ -35,7 +35,7 @@ with the gather option (-g) and a directory path:
 
   scythe -g .
 
-Scythe will recursively iterate over all Ruby and Python files in the specified 
+Scythe will recursively iterate over all source files in the specified 
 directory and record the addition of any probe calls. Ideally, scythe -g
 should be run as part of your build.
 
@@ -71,7 +71,7 @@ that support them would complicate processing.
 
 == FUTURE DIRECTIONS:
 
-* Support for other languages (Javascript, Java, C etc)
+* Support for other languages (Javascript, C, C# etc)
 * Record number of calls and stack traces
 * statsd support
 
@@ -99,6 +99,7 @@ Run scythe -h to see command line options
 
 * Ruby >= 2.3.0 
 * OPTIONAL: Python 3.x to use the python probe
+* OPTIONAL: Java 7+ to use the Java probe 
 
 == LICENSE:
 
