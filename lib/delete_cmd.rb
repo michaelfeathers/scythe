@@ -16,7 +16,6 @@ class DeleteCommand
     end
 
     probes = get_probes(probe_dir) 
-    puts probes.map(&:name)
 
     if probes.map(&:name).select {|n| n == @probe_name }.empty?
       @err.puts "scythe: unable to find probe #{@probe_name}"
