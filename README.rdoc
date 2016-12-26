@@ -17,7 +17,7 @@ about whether to attempt to delete code or do further analysis.
 
 == FEATURES/PROBLEMS:
 
-* Currently only supports Ruby and Python 3.x
+* Currently supports Java, Python 3.x and Ruby
 
 == SYNOPSIS:
 
@@ -71,7 +71,7 @@ that support them would complicate processing.
 
 == FUTURE DIRECTIONS:
 
-* Support for other languages (Javascript, Java, C etc)
+* Support for other languages (Javascript, C, C# etc)
 * Record number of calls and stack traces
 * statsd support
 
@@ -98,7 +98,8 @@ Run scythe -h to see command line options
 == REQUIREMENTS:
 
 * Ruby >= 2.30 
-* OPTIONAL: Python 3.x to use the python probe
+* OPTIONAL: Python 3.x to use the Python probe
+* OPTIONAL: Java 7+ to use the Java probe 
 
 == LICENSE:
 
