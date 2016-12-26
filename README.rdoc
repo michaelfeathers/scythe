@@ -35,7 +35,7 @@ with the gather option (-g) and a directory path:
 
   scythe -g .
 
-Scythe will recursively iterate over all Ruby and Python files in the specified 
+Scythe will recursively iterate over all source files in the specified 
 directory and record the addition of any probe calls. Ideally, scythe -g
 should be run as part of your build.
 
