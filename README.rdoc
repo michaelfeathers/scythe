@@ -21,7 +21,7 @@ about whether to attempt to delete code or do further analysis.
 
 == SYNOPSIS:
 
-To use Scythe, place calls in your Ruby/Python code of the following form
+To use Scythe, place calls in your code of the following form
   
   scythe_probe("probe_name") 
 
