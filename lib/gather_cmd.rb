@@ -26,7 +26,7 @@ class GatherCommand
     project_dir = File.expand_path(@dir) 
 
     probe_markers =
-      file_names(project_dir).grep(/\.rb$|\.py$/)
+      file_names(project_dir).grep(/\.rb$|\.py$|\.java$/)
                              .flat_map {|fn| markers(fn) }
     
     duplicated_markers =
