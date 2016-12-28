@@ -14,7 +14,7 @@ public class Probe {
 		 
 		 File file = new File(dir.getPath(), marker + ".scythe_probe");
 		 
-		 if (file.exists())
+		 if (!file.exists())
 			 return;
 		 
 		 file.setLastModified(System.currentTimeMillis());

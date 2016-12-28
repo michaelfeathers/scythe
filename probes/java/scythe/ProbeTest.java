@@ -39,11 +39,12 @@ public class ProbeTest {
 
 	@Test
 	public void touchesOnExisting() {
+		long oldMarkerTime = new File(path(EXISTING_MARKER)).lastModified();
 		scythe_probe(EXISTING_MARKER);
 		
-		long markerTime = new File(path(EXISTING_MARKER)).lastModified();
+		long newMarkerTime = new File(path(EXISTING_MARKER)).lastModified();
 	
-		assertTrue(System.currentTimeMillis() - markerTime > 10);	
+		assertTrue(newMarkerTime > oldMarkerTime);
 	}
 
 }
