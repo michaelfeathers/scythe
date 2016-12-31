@@ -5,7 +5,7 @@ namespace Scythe
 {
     public class Probe
     {
-        public static void Mark(string marker)
+        public static void Scythe_Probe(string marker)
         {
             try
             {

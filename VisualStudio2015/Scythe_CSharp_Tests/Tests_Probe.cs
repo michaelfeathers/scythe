@@ -40,7 +40,7 @@ namespace Scythe_CSharp_Tests
         [TestMethod]
         public void Test_NewMarker()
         {
-            Scythe.Probe.Mark(MARKER);
+            Scythe.Probe.Scythe_Probe(MARKER);
 
             var folder = Environment.GetEnvironmentVariable("SCYTHE_PROBE_DIR");
             var filename = MARKER + ".scythe_probe";
@@ -51,7 +51,7 @@ namespace Scythe_CSharp_Tests
         [TestMethod]
         public void Test_ExistingMarker()
         {
-            Scythe.Probe.Mark(MARKER);
+            Scythe.Probe.Scythe_Probe(MARKER);
 
             var folder = Environment.GetEnvironmentVariable("SCYTHE_PROBE_DIR");
             var filename = MARKER + ".scythe_probe";
@@ -62,7 +62,7 @@ namespace Scythe_CSharp_Tests
 
             System.Threading.Thread.Sleep(3000);
 
-            Scythe.Probe.Mark(MARKER);
+            Scythe.Probe.Scythe_Probe(MARKER);
 
             var tlaAfterUpdate = File.GetLastWriteTimeUtc(path);
 
