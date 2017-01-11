@@ -13,7 +13,8 @@ scythe.probe("test-happy", function(err) {
   if (!err) {
     fs.stat("/tmp/test-happy.scythe_probe", (err, stats) => {
       if (!err) {
-        console.log("test-happy " + stats.isFile());
+        timeDiff = (Math.abs(Date.now() - stats.mtime.getTime()) / 1000) >> 0;
+        console.log("test-happy " + (stats.isFile() && timeDiff <= 1)); // file must exist and mtime is within 1 seconds of "now"
         fs.unlink("/tmp/test-happy.scythe_probe", function(){});
       } else {
         console.log("test-happy " + err);
@@ -38,4 +39,3 @@ process.env.SCYTHE_PROBE_DIR = undefined;
 scythe.probe("test-no-env", function(err) {
   console.log("test-no-env " + (err && err.code == "ENOENT"));
 });
-
